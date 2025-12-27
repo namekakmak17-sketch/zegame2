@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สำหรับเปรม 💗</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(255,105,180,0.35);
+  animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+  color: #ff2f92;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #ff4f9a;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  width: 120px;
+  padding: 14px 0;
+  border-radius: 30px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.love {
+  background: linear-gradient(135deg, #ff4d9d, #ff80b3);
+  color: white;
+}
+
+.no {
+  background: white;
+  color: #ff4d9d;
+}
+
+.btn:hover {
+  transform: scale(1.08);
+}
+
+.emoji {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.final {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="emoji" id="emoji">💗</div>
+  <h1 id="question">เปรมรักเค้ามั้ย</h1>
+  <p id="sub">ตอบตามใจเลยนะ 💕</p>
+
+  <div class="buttons">
+    <button class="btn love" onclick="love()">❤️ รัก</button>
+    <button class="btn no" onclick="noLove()">❌ ไม่รัก</button>
+  </div>
+</div>
+
+<script>
+const question = document.getElementById("question");
+const emoji = document.getElementById("emoji");
+const sub = document.getElementById("sub");
+const card = document.getElementById("card");
+
+function noLove() {
+  emoji.innerHTML = "🥺💔";
+  question.innerHTML = "แน่ใจหรอ…ไม่รักเค้าจริง ๆ หรอ";
+  sub.innerHTML = "เค้าเสียใจนะ ลองตอบใหม่อีกครั้ง 🥹";
+  shake();
+}
+
+function love() {
+  card.innerHTML = `
+    <div class="emoji">🥰💞</div>
+    <h1>เย้~ เค้าดีใจมากเลย</h1>
+    <p>
+      ขอบคุณที่เลือกกดรักเค้านะ 💗<br>
+      เค้ารักเปรมมากจริง ๆ
+    </p>
+  `;
+}
+
+function shake() {
+  card.style.animation = "none";
+  card.offsetHeight;
+  card.style.animation = "pop 0.4s ease";
+}
+</script>
+
+</body>
+</html>

@@ -1,65 +1,255 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เกมรักเบบี๋</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>เกมรักเบบี๋ - ใส่รหัส + หน้า HEY BABE</title>
 <style>
   body {
     font-family: 'Arial', sans-serif;
-    text-align: center;
-    background-color: #ffe6f0;
-    padding: 50px;
+    background-color: #fff;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
   }
-  h1 {
-    color: #ff3366;
-    font-size: 2em;
+  .container {
+    max-width: 600px;
+    width: 100%;
+    border: 2px solid #c0392b;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff0f0;
   }
-  button {
-    padding: 15px 30px;
-    margin: 20px;
-    font-size: 1.2em;
+
+  /* หน้าใส่รหัส */
+  .password-section {
+    display: flex;
+    gap: 20px;
+  }
+  .left {
+    flex: 1;
+  }
+  .left img {
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+  }
+  .right {
+    flex: 1;
+  }
+  .title {
+    font-size: 24px;
+    color: #c0392b;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    color: #c0392b;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  .password-display {
+    font-size: 32px;
+    letter-spacing: 10px;
+    height: 40px;
+    border-bottom: 2px solid #c0392b;
+    margin-bottom: 20px;
+    user-select: none;
+  }
+  .keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .keypad button {
+    font-size: 24px;
+    padding: 15px 0;
     border-radius: 10px;
     border: none;
+    background-color: #c0392b;
+    color: white;
     cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
   }
-  .love { background-color: #ff6699; color: white; }
-  .not-love { background-color: #ccc; }
-  img { max-width: 300px; margin-top: 20px; border-radius: 15px; }
+  .keypad button:hover {
+    background-color: #e74c3c;
+  }
+  .clear-btn {
+    grid-column: span 3;
+    background-color: #aaa;
+    margin-top: 10px;
+  }
+  .clear-btn:hover {
+    background-color: #888;
+  }
+  .error {
+    color: #e74c3c;
+    margin-top: 10px;
+    min-height: 20px;
+  }
+
+  /* หน้า HEY BABE */
+  #heyBabeSection {
+    display: none;
+    text-align: center;
+    background-color: #fff0f0;
+    padding: 30px;
+    border-radius: 25px;
+    border: 2px solid #c0392b;
+  }
+  #heyBabeSection h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #c0392b;
+  }
+  #heyBabeSection p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  #heyBabeSection .emoji-face {
+    font-size: 100px;
+    margin-bottom: 30px;
+  }
+  #heyBabeSection .buttons {
+    margin-bottom: 30px;
+  }
+  #heyBabeSection button {
+    font-size: 48px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0 30px;
+    transition: transform 0.2s;
+  }
+  #heyBabeSection button:hover {
+    transform: scale(1.2);
+  }
+  #heyBabeSection .hearts {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  #heyBabeSection .heart-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #c0392b;
+  }
 </style>
 </head>
 <body>
 
-<h1 id="question">เบบี๋รักเค้ามั้ย?</h1>
-<button class="love" onclick="chooseLove()">รัก ❤️</button>
-<button class="not-love" onclick="chooseNotLove()">ไม่รัก 💔</button>
-<div id="result"></div>
+<div class="container" id="container">
+  <!-- หน้าใส่รหัส -->
+  <div id="passwordSection" class="password-section">
+    <div class="left">
+      <img src="d85f17b4-40cf-423f-b024-b4253b3f8788.png" alt="รูปเบบี๋กับเค้า" />
+    </div>
+    <div class="right">
+      <div class="title">Enter Your Password</div>
+      <div class="subtitle">ตั้งรหัสลับหมาย: วันเกิดเรา 6 6 เดือน 7</div>
+      <div class="password-display" id="passwordDisplay"></div>
+      <div class="keypad">
+        <button onclick="pressKey('1')">1</button>
+        <button onclick="pressKey('2')">2</button>
+        <button onclick="pressKey('3')">3</button>
+        <button onclick="pressKey('4')">4</button>
+        <button onclick="pressKey('5')">5</button>
+        <button onclick="pressKey('6')">6</button>
+        <button onclick="pressKey('7')">7</button>
+        <button onclick="pressKey('8')">8</button>
+        <button onclick="pressKey('9')">9</button>
+        <button onclick="pressKey('*')">*</button>
+        <button onclick="pressKey('0')">0</button>
+        <button onclick="pressKey('#')">#</button>
+      </div>
+      <button class="clear-btn" onclick="clearPassword()">ล้างรหัส</button>
+      <div class="error" id="errorMsg"></div>
+    </div>
+  </div>
+
+  <!-- หน้า HEY BABE -->
+  <div id="heyBabeSection">
+    <div class="hearts">
+      <img src="a3d898d4-b1d5-4405-b67c-73d7d257a4ee.png" alt="รูปซ้าย" class="heart-img" />
+      <img src="a3d898d4-b1d5-4405-b67c-73d7d257a4ee.png" alt="รูปขวา" class="heart-img" />
+    </div>
+    <div class="emoji-face">😉</div>
+    <h1>HEY BABE?</h1>
+    <p>รักเค้าไหม?</p>
+    <div class="buttons">
+      <button id="loveBtn" onclick="chooseLove()">❤️</button>
+      <button id="notLoveBtn" onclick="chooseNotLove()">❌</button>
+    </div>
+    <div id="result"></div>
+  </div>
+</div>
 
 <script>
-// GIF สำหรับตอบ "ไม่รัก" (เศร้า / น่ารัก)
-const sadGifs = [
-  "https://cdn.pixabay.com/animation/2023/08/15/12/25/12-25-50-757_512.gif",
-  "https://cdn.pixabay.com/animation/2023/09/20/14/16/14-16-52-802_512.gif"
-];
+  const passwordDisplay = document.getElementById('passwordDisplay');
+  const errorMsg = document.getElementById('errorMsg');
+  let inputPassword = '';
 
-// GIF สำหรับตอบ "รัก" (น่ารัก / โรแมนติก)
-const cuteGifs = [
-  "https://cdn.pixabay.com/animation/2023/08/03/09/47/09-47-09-798_512.gif",
-  "https://cdn.pixabay.com/animation/2024/03/01/19/22/19-22-44-842_512.gif",
-  "https://cdn.pixabay.com/animation/2024/05/10/15/18/15-18-14-729_512.gif"
-];
+  const correctPassword = '667'; // รหัสลับ คือ วันเกิด 6 6 เดือน 7
 
-function chooseNotLove() {
-  const randomIndex = Math.floor(Math.random() * sadGifs.length);
-  document.getElementById("question").innerText = "ไม่รักเค้าจริง ๆ หรอเบบี๋?";
-  document.getElementById("result").innerHTML = `<img src="${sadGifs[randomIndex]}" alt="เสียใจ">`;
-}
+  function pressKey(key) {
+    if (inputPassword.length >= 10) return; // จำกัดความยาวรหัส
+    inputPassword += key;
+    updateDisplay();
+    errorMsg.innerText = '';
 
-function chooseLove() {
-  const randomIndex = Math.floor(Math.random() * cuteGifs.length);
-  document.getElementById("question").innerText = "เค้าก็รักเบบี๋เหมือนกันเค้าขอโทษนะเบบี๋ 💕";
-  document.getElementById("result").innerHTML = `<img src="${cuteGifs[randomIndex]}" alt="น่ารัก">`;
-}
+    // อัตโนมัติเช็คถ้ารหัสตรง
+    if (inputPassword === correctPassword) {
+      startHeyBabe();
+    }
+  }
+
+  function updateDisplay() {
+    // แสดง * แทนตัวเลข
+    passwordDisplay.innerText = '*'.repeat(inputPassword.length);
+  }
+
+  function clearPassword() {
+    inputPassword = '';
+    updateDisplay();
+    errorMsg.innerText = '';
+  }
+
+  function startHeyBabe() {
+    // ซ่อนหน้าใส่รหัส แล้วแสดงหน้า HEY BABE
+    document.getElementById('passwordSection').style.display = 'none';
+    document.getElementById('heyBabeSection').style.display = 'block';
+  }
+
+  // GIF สำหรับตอบ "ไม่รัก" (เศร้า / น่ารัก)
+  const sadGifs = [
+    "https://cdn.pixabay.com/animation/2023/08/15/12/25/12-25-50-757_512.gif",
+    "https://cdn.pixabay.com/animation/2023/09/20/14/16/14-16-52-802_512.gif"
+  ];
+
+  // GIF สำหรับตอบ "รัก" (น่ารัก / โรแมนติก)
+  const cuteGifs = [
+    "https://cdn.pixabay.com/animation/2023/08/03/09/47/09-47-09-798_512.gif",
+    "https://cdn.pixabay.com/animation/2024/03/01/19/22/19-22-44-842_512.gif",
+    "https://cdn.pixabay.com/animation/2024/05/10/15/18/15-18-14-729_512.gif"
+  ];
+
+  function chooseNotLove() {
+    const randomIndex = Math.floor(Math.random() * sadGifs.length);
+    document.getElementById("result").innerHTML = '<img src="' + sadGifs[randomIndex] + '" alt="เสียใจ">';
+  }
+
+  function chooseLove() {
+    const randomIndex = Math.floor(Math.random() * cuteGifs.length);
+    document.getElementById("result").innerHTML = '<img src="' + cuteGifs[randomIndex] + '" alt="น่ารัก">';
+  }
 </script>
 
 </body>
